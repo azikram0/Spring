@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <bean id = "myPet"
+          class = "com.azikram0.spring.lab1_2.Dog">
+    </bean>
+
+    <bean id = "myCar"
+          class = "com.azikram0.spring.lab1_2.Car">
+    </bean>
+
+    <bean id = "myEmployee"
+          class = "com.azikram0.spring.lab1_2.Employee">
+        <constructor-arg ref = "myPet"/>
+        <constructor-arg ref = "myCar"/>
+        <property name="name" value="${employee.name}"/>
+        <property name="age" value="${employee.age}"/>
+    </bean>
+
+</beans>
