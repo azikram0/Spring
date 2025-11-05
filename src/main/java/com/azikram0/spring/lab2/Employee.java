@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class Employee {
     private Pet pet;
     private Car car;
-    //@Value ("${employee.name}")
+    @Value ("${employee.name}")
     private String name;
-    //@Value ("${employee.age}")
+    @Value ("${employee.age}")
     private int age;
 
     //@Autowired

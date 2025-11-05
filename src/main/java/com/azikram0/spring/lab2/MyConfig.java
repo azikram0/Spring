@@ -3,9 +3,11 @@ package com.azikram0.spring.lab2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 //@ComponentScan("com.azikram0.spring.lab2")
+@PropertySource("application.properties")
 public class MyConfig {
     @Bean
     public Pet catBean(){
