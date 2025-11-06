@@ -12,13 +12,22 @@ public class Test {
             CanBePutIntoWarehouse barrel = context.getBean("barrel", CanBePutIntoWarehouse.class);
             barrel.sendToWarehouse(warehouse);
 
-            CanBePutIntoWarehouse bucket = context.getBean("bucket", CanBePutIntoWarehouse.class);
-            bucket.sendToWarehouse(warehouse);
+            CanBePutIntoWarehouse bucket1 = context.getBean("bucket", CanBePutIntoWarehouse.class);
+            bucket1.sendToWarehouse(warehouse);
+
+            CanBePutIntoWarehouse bucket2 = context.getBean("bucket", CanBePutIntoWarehouse.class);
+            bucket2.sendToWarehouse(warehouse);
 
             CanBePutIntoWarehouse box = context.getBean("box", CanBePutIntoWarehouse.class);
 
-            warehouse.takeFromWarehouse(box, 1);
+            warehouse.takeFromWarehouse(bucket1, 3);
 
-        } catch (Exception exception) {}
+            warehouse.takeFromWarehouse(bucket1, 2);
+
+            box.sendToWarehouse(warehouse);
+
+        } catch (Exception exception) {
+
+        }
     }
 }
