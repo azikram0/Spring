@@ -26,7 +26,9 @@ public class Specialist {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "specialist")
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "specialist",
+            fetch = FetchType.EAGER)
     private List<Pet> pets = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "specialist")
     private List<MedicalHistory> medicalHistories = new ArrayList<>();

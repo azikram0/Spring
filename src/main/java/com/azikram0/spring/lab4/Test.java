@@ -1,5 +1,6 @@
 package com.azikram0.spring.lab4;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,23 +22,26 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("=== Testing relationships between tables ===\n");
 
-        // Тест 1: Создание и сохранение Specialist с Pet (OneToMany)
-        testSpecialistPetRelationship();
+//        // Тест 1: Создание и сохранение Specialist с Pet (OneToMany)
+//        testSpecialistPetRelationship();
+//
+//        // Тест 2: Создание и сохранение Pet с Owner (ManyToMany)
+//        testPetOwnerRelationship();
+//
+//        // Тест 3: Создание и сохранение MedicalHistory (OneToOne с Pet, ManyToOne с Specialist)
+//        testMedicalHistoryRelationships();
+//
+//        // Тест 4: Проверка каскадного удаления
+//        testCascadeDelete();
+//
+//        // Тест 5: Добавление и удаление связей
+//        testAddRemoveRelationships();
+//
+//        // Тест 6: Обновление связей
+//        testUpdateRelationships();
 
-        // Тест 2: Создание и сохранение Pet с Owner (ManyToMany)
-        testPetOwnerRelationship();
-
-        // Тест 3: Создание и сохранение MedicalHistory (OneToOne с Pet, ManyToOne с Specialist)
-        testMedicalHistoryRelationships();
-
-        // Тест 4: Проверка каскадного удаления
-        testCascadeDelete();
-
-        // Тест 5: Добавление и удаление связей
-        testAddRemoveRelationships();
-
-        // Тест 6: Обновление связей
-        testUpdateRelationships();
+        // Тест 7: Проверка EAGER/LAZY загрузки у Specialist
+        testSpecialistFetchTypes();
 
         System.out.println("\n=== All tests completed ===");
         sessionFactory.close();
@@ -531,6 +535,99 @@ public class Test {
         } finally {
             session.close();
         }
+        System.out.println();
+    }
+
+    /**
+     * Тест 7: Проверка EAGER (pets) и LAZY (medicalHistories) загрузки у Specialist
+     */
+    private static void testSpecialistFetchTypes() {
+        System.out.println("Test 7: Specialist fetch types (EAGER pets, LAZY medicalHistories)");
+        System.out.println("----------------------------------------------------------------");
+
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Integer specialistId = null;
+
+        try {
+            // Создаем Specialist, Pet и MedicalHistory
+            Specialist specialist = new Specialist();
+            specialist.setFirstName("Fetch");
+            specialist.setLastName("Tester");
+            specialist.setQualification("General");
+            specialist.setPhone("+7-999-777-00-00");
+            specialist.setEmail("fetch@test.ru");
+            specialist.setCreatedAt(LocalDateTime.now());
+
+            Pet pet = new Pet();
+            pet.setName("FetchPet");
+            pet.setSpecies("Dog");
+            pet.setBreed("Mix");
+            pet.setBirthDate(LocalDate.of(2022, 1, 1));
+            pet.setGender("M");
+            pet.setCreatedAt(LocalTime.now());
+
+            specialist.addPet(pet);
+            session.persist(specialist);
+            transaction.commit();
+
+            specialistId = specialist.getId();
+
+            // Создаем MedicalHistory в отдельной транзакции, чтобы связать с тем же specialist/pet из БД
+            session = getSession();
+            transaction = session.beginTransaction();
+            Specialist persistedSpecialist = session.get(Specialist.class, specialistId);
+            Pet persistedPet = persistedSpecialist.getPets().getFirst();
+
+            MedicalHistory history = new MedicalHistory();
+            history.setHistoryText("Fetch test history");
+            history.setLastVisitDate(LocalDate.now());
+            history.setLastUpdated(LocalTime.now());
+            history.setPet(persistedPet);
+            history.setSpecialist(persistedSpecialist);
+
+            session.persist(history);
+            transaction.commit();
+
+            // Загружаем Specialist и проверяем, что загружается EAGER и LAZY
+            session = getSession();
+            transaction = session.beginTransaction();
+
+            Specialist loaded = session.get(Specialist.class, specialistId);
+
+            System.out.println("\nLoaded specialist:");
+            System.out.println("  ID: " + loaded.getId());
+            System.out.println("  Name: " + loaded.getFirstName() + " " + loaded.getLastName());
+
+            // Проверяем и выводим состояние инициализации коллекций
+            boolean petsInitializedBefore = Hibernate.isInitialized(loaded.getPets());
+            boolean historiesInitializedBefore = Hibernate.isInitialized(loaded.getMedicalHistories());
+
+            System.out.println("\nBefore accessing collections:");
+            System.out.println("  pets initialized (EAGER): " + petsInitializedBefore);
+            System.out.println("  medicalHistories initialized (LAZY): " + historiesInitializedBefore);
+
+            System.out.println("\nAccessing collections inside session:");
+            System.out.println("  pets size: " + loaded.getPets().size());
+            System.out.println("  medicalHistories size: " + loaded.getMedicalHistories().size());
+
+            boolean petsInitializedAfter = Hibernate.isInitialized(loaded.getPets());
+            boolean historiesInitializedAfter = Hibernate.isInitialized(loaded.getMedicalHistories());
+
+            System.out.println("\nAfter accessing collections:");
+            System.out.println("  pets initialized (EAGER): " + petsInitializedAfter);
+            System.out.println("  medicalHistories initialized (LAZY): " + historiesInitializedAfter);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            System.err.println("ERROR: " + e.getMessage());
+        } finally {
+            session.close();
+        }
+
         System.out.println();
     }
 }
