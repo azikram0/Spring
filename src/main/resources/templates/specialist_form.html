@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Specialist</title>
+</head>
+<body>
+<h2>Add Specialist</h2>
+<form th:action="@{/specialists/add}" th:object="${specialistForm}" method="post">
+    <!-- Text inputs -->
+    <label>First Name: <input type="text" th:field="*{firstName}" /></label>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+
+    <label>Last Name: <input type="text" th:field="*{lastName}" /></label>
+    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+
+    <label>Qualification: <input type="text" th:field="*{qualification}" /></label>
+    <div th:if="${#fields.hasErrors('qualification')}" th:errors="*{qualification}"></div>
+
+    <label>Phone: <input type="text" th:field="*{phone}" /></label>
+    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+
+    <label>Email: <input type="email" th:field="*{email}" /></label>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <!-- Select for specialization -->
+    <label>Specialization:
+        <select th:field="*{qualification}">
+            <option th:each="s : ${specializations}" th:value="${s}" th:text="${s}"></option>
+        </select>
+    </label>
+
+    <!-- Checkbox example -->
+    <label><input type="checkbox" /> Accepts new patients</label>
+
+    <button type="submit">Add Specialist</button>
+</form>
+</body>
+</html>

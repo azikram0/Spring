@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Medical History</title>
+</head>
+<body>
+<h2>Add Medical History</h2>
+<form th:action="@{/histories/add}" th:object="${historyForm}" method="post">
+    <!-- Text input -->
+    <label>History Title / Notes:
+        <input type="text" th:field="*{historyText}" />
+    </label>
+    <div th:if="${#fields.hasErrors('historyText')}" th:errors="*{historyText}"></div>
+
+    <!-- Select for Pet -->
+    <label>Pet:
+        <select th:field="*{petId}">
+            <option th:each="p : ${pets}" th:value="${p.id()}" th:text="${p.name()}"></option>
+        </select>
+    </label>
+
+    <!-- Select for Specialist -->
+    <label>Specialist:
+        <select th:field="*{specialistId}">
+            <option th:each="s : ${specialists}" th:value="${s.id()}" th:text="${s.firstName() + ' ' + s.lastName()}"></option>
+        </select>
+    </label>
+
+    <!-- Radio example -->
+    <div>
+        Urgent:
+        <label><input type="radio" th:field="*{specialistId}" value="1"/> Yes</label>
+        <label><input type="radio" th:field="*{specialistId}" value="0"/> No</label>
+    </div>
+
+    <!-- Checkbox example -->
+    <label><input type="checkbox"/> Chronic Conditions</label>
+
+    <button type="submit">Add History</button>
+</form>
+</body>
+</html>

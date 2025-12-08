@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Owner</title>
+</head>
+<body>
+<h2>Add Owner</h2>
+<form th:action="@{/owners/add}" th:object="${ownerForm}" method="post">
+    <!-- Text inputs -->
+    <label>First Name: <input type="text" th:field="*{firstName}" /></label>
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+
+    <label>Last Name: <input type="text" th:field="*{lastName}" /></label>
+    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+
+    <label>Phone: <input type="text" th:field="*{phone}" /></label>
+    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+
+    <label>Email: <input type="email" th:field="*{email}" /></label>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <label>Address: <input type="text" th:field="*{address}" /></label>
+    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+    <!-- Select for city -->
+    <label>City:
+        <select>
+            <option th:each="c : ${cities}" th:text="${c}" th:value="${c}"></option>
+        </select>
+    </label>
+
+    <!-- Checkbox example -->
+    <label><input type="checkbox" /> Has pets before</label>
+
+    <button type="submit">Add Owner</button>
+</form>
+</body>
+</html>
