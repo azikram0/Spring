@@ -1,9 +1,9 @@
-package com.azikram0.spring.lab4;
+package com.azikram0.spring.lab4.entity;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +25,12 @@ public class Pet {
     @Column(name = "gender")
     private String gender;
     @Column(name = "created_at")
-    private LocalTime createdAt;
+    private LocalDateTime createdAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "specialist_id")
     private Specialist specialist;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "pet_owner_link",
             joinColumns = @JoinColumn(name = "pet_id"),
@@ -101,11 +101,11 @@ public class Pet {
         this.gender = gender;
     }
 
-    public LocalTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

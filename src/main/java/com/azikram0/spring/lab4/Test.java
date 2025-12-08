@@ -1,5 +1,9 @@
 package com.azikram0.spring.lab4;
 
+import com.azikram0.spring.lab4.entity.MedicalHistory;
+import com.azikram0.spring.lab4.entity.Owner;
+import com.azikram0.spring.lab4.entity.Pet;
+import com.azikram0.spring.lab4.entity.Specialist;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,7 +12,6 @@ import org.hibernate.cfg.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Test {
     private static final SessionFactory sessionFactory = new Configuration()
@@ -22,23 +25,23 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("=== Testing relationships between tables ===\n");
 
-//        // Тест 1: Создание и сохранение Specialist с Pet (OneToMany)
-//        testSpecialistPetRelationship();
-//
-//        // Тест 2: Создание и сохранение Pet с Owner (ManyToMany)
-//        testPetOwnerRelationship();
-//
-//        // Тест 3: Создание и сохранение MedicalHistory (OneToOne с Pet, ManyToOne с Specialist)
-//        testMedicalHistoryRelationships();
-//
-//        // Тест 4: Проверка каскадного удаления
-//        testCascadeDelete();
-//
-//        // Тест 5: Добавление и удаление связей
-//        testAddRemoveRelationships();
-//
-//        // Тест 6: Обновление связей
-//        testUpdateRelationships();
+        // Тест 1: Создание и сохранение Specialist с Pet (OneToMany)
+        testSpecialistPetRelationship();
+
+        // Тест 2: Создание и сохранение Pet с Owner (ManyToMany)
+        testPetOwnerRelationship();
+
+        // Тест 3: Создание и сохранение MedicalHistory (OneToOne с Pet, ManyToOne с Specialist)
+        testMedicalHistoryRelationships();
+
+        // Тест 4: Проверка каскадного удаления
+        testCascadeDelete();
+
+        // Тест 5: Добавление и удаление связей
+        testAddRemoveRelationships();
+
+        // Тест 6: Обновление связей
+        testUpdateRelationships();
 
         // Тест 7: Проверка EAGER/LAZY загрузки у Specialist
         testSpecialistFetchTypes();
@@ -74,7 +77,7 @@ public class Test {
             pet1.setBreed("Persian");
             pet1.setBirthDate(LocalDate.of(2020, 5, 15));
             pet1.setGender("M");
-            pet1.setCreatedAt(LocalTime.now());
+            pet1.setCreatedAt(LocalDateTime.now());
 
             Pet pet2 = new Pet();
             pet2.setName("Sharik");
@@ -82,7 +85,7 @@ public class Test {
             pet2.setBreed("Labrador");
             pet2.setBirthDate(LocalDate.of(2019, 3, 20));
             pet2.setGender("M");
-            pet2.setCreatedAt(LocalTime.now());
+            pet2.setCreatedAt(LocalDateTime.now());
 
             System.out.println("Creating:");
             System.out.println("  Specialist: " + specialist.getFirstName() + " " + specialist.getLastName());
@@ -156,7 +159,7 @@ public class Test {
             pet.setBreed("British");
             pet.setBirthDate(LocalDate.of(2021, 7, 10));
             pet.setGender("F");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             System.out.println("Creating:");
             System.out.println("  Pet: " + pet.getName() + " (" + pet.getSpecies() + ")");
@@ -230,7 +233,7 @@ public class Test {
             pet.setBreed("Shepherd");
             pet.setBirthDate(LocalDate.of(2018, 1, 5));
             pet.setGender("M");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             System.out.println("Creating:");
             System.out.println("  Specialist: " + specialist.getFirstName() + " " + specialist.getLastName());
@@ -250,7 +253,7 @@ public class Test {
             MedicalHistory history = new MedicalHistory();
             history.setHistoryText("Routine checkup. Condition satisfactory.");
             history.setLastVisitDate(LocalDate.now());
-            history.setLastUpdated(LocalTime.now());
+            history.setLastUpdated(LocalDateTime.now());
             history.setPet(pet);
             history.setSpecialist(specialist);
 
@@ -310,7 +313,7 @@ public class Test {
             pet.setBreed("Test");
             pet.setBirthDate(LocalDate.now());
             pet.setGender("M");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             System.out.println("Creating:");
             System.out.println("  Specialist: " + specialist.getFirstName() + " " + specialist.getLastName());
@@ -382,7 +385,7 @@ public class Test {
             pet.setBreed("Mixed");
             pet.setBirthDate(LocalDate.of(2022, 4, 12));
             pet.setGender("M");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             session.persist(owner);
             session.persist(pet);
@@ -490,7 +493,7 @@ public class Test {
             pet.setBreed("Dachshund");
             pet.setBirthDate(LocalDate.of(2020, 6, 1));
             pet.setGender("M");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             specialist1.addPet(pet);
             session.persist(specialist1);
@@ -566,7 +569,7 @@ public class Test {
             pet.setBreed("Mix");
             pet.setBirthDate(LocalDate.of(2022, 1, 1));
             pet.setGender("M");
-            pet.setCreatedAt(LocalTime.now());
+            pet.setCreatedAt(LocalDateTime.now());
 
             specialist.addPet(pet);
             session.persist(specialist);
@@ -583,7 +586,7 @@ public class Test {
             MedicalHistory history = new MedicalHistory();
             history.setHistoryText("Fetch test history");
             history.setLastVisitDate(LocalDate.now());
-            history.setLastUpdated(LocalTime.now());
+            history.setLastUpdated(LocalDateTime.now());
             history.setPet(persistedPet);
             history.setSpecialist(persistedSpecialist);
 

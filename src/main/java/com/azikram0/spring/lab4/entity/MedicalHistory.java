@@ -1,9 +1,9 @@
-package com.azikram0.spring.lab4;
+package com.azikram0.spring.lab4.entity;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "medical_history")
@@ -16,14 +16,14 @@ public class MedicalHistory {
     @Column(name = "last_visit_date")
     private LocalDate lastVisitDate;
     @Column(name = "last_updated")
-    private LocalTime lastUpdated;
+    private LocalDateTime lastUpdated;
 
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "created_by_specialist")
     private Specialist specialist;
 
@@ -54,11 +54,11 @@ public class MedicalHistory {
         this.lastVisitDate = lastVisitDate;
     }
 
-    public LocalTime getLastUpdated() {
+    public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(LocalTime lastUpdated) {
+    public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 

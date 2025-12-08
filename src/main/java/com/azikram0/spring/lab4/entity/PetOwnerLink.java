@@ -1,4 +1,4 @@
-package com.azikram0.spring.lab4;
+package com.azikram0.spring.lab4.entity;
 
 import jakarta.persistence.*;
 

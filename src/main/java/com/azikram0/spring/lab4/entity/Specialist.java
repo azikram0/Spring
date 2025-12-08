@@ -1,4 +1,4 @@
-package com.azikram0.spring.lab4;
+package com.azikram0.spring.lab4.entity;
 
 import jakarta.persistence.*;
 
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "owner")
-public class Owner {
+@Table(name = "specialist")
+public class Specialist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,27 +17,26 @@ public class Owner {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "qualification")
+    private String qualification;
     @Column(name = "phone")
     private String phone;
     @Column(name = "email")
     private String email;
-    @Column(name = "address")
-    private String address;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "pet_owner_link",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "pet_id")
-    )
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "specialist",
+            fetch = FetchType.EAGER)
     private List<Pet> pets = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "specialist")
+    private List<MedicalHistory> medicalHistories = new ArrayList<>();
 
-    public Owner() {
+    public Specialist() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -61,6 +60,14 @@ public class Owner {
         this.lastName = lastName;
     }
 
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -75,14 +82,6 @@ public class Owner {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -101,16 +100,31 @@ public class Owner {
         this.pets = pets;
     }
 
+    public List<MedicalHistory> getMedicalHistories() {
+        return medicalHistories;
+    }
+
+    public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
+        this.medicalHistories = medicalHistories;
+    }
+
+    public void addPet(Pet pet) {
+        pets.add(pet);
+        pet.setSpecialist(this);
+    }
+
     @Override
     public String toString() {
-        return "Owner{" +
+        return "Specialist{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", qualification='" + qualification + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
                 ", createdAt=" + createdAt +
+                ", pets=" + pets +
+                ", medicalHistories=" + medicalHistories +
                 '}';
     }
 }
