@@ -17,5 +17,9 @@ public record OwnerForm(
 
         @NotBlank(message = "Адрес обязателен")
         String address
-) {}
+) {
+    public OwnerForm() {
+        this("", "", "", "", "");
+    }
+}
 

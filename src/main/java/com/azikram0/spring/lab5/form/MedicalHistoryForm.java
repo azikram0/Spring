@@ -11,12 +11,16 @@ public record MedicalHistoryForm(
         @NotBlank(message = "Описание истории болезни не может быть пустым")
         String historyText,
 
-        @NotNull(message = "Дата последнего визита обязателена")
+        @NotNull(message = "Дата последнего визита обязательна")
         LocalDate lastVisitDate,
 
-        @NotNull(message = "Дата последнего обновления обязателена")
+        @NotNull(message = "Дата последнего обновления обязательна")
         LocalDateTime lastUpdated,
 
         @NotNull(message = "ID специалиста обязателен")
         Integer specialistId
-) {}
+) {
+    public MedicalHistoryForm() {
+        this(null, "", null, null, null);
+    }
+}

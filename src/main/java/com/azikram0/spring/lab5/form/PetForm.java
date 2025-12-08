@@ -11,13 +11,17 @@ public record PetForm(
         @NotBlank(message = "Вид животного обязателен")
         String species,
 
-        @NotBlank(message = "Порода обязателена")
+        @NotBlank(message = "Порода обязательна")
         String breed,
 
-        @NotNull(message = "Дата рождения обязателена")
+        @NotNull(message = "Дата рождения обязательна")
         LocalDate birthDate,
 
         @NotBlank(message = "Пол обязателен")
         String gender
-) {}
+) {
+    public PetForm() {
+        this("", "", "", null, "");
+    }
+}
 

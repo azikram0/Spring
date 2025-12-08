@@ -9,7 +9,7 @@ public record SpecialistForm(
         @NotBlank(message = "Фамилия не может быть пустой")
         String lastName,
 
-        @NotBlank(message = "Квалификация обязателена")
+        @NotBlank(message = "Квалификация обязательна")
         String qualification,
 
         @Pattern(regexp = "\\+?\\d{10,15}", message = "Неверный формат телефона")
@@ -17,4 +17,8 @@ public record SpecialistForm(
 
         @Email(message = "Некорректный email")
         String email
-) {}
+) {
+    public SpecialistForm() {
+        this("", "", "", "", "");
+    }
+}
