@@ -1,12 +1,23 @@
 package com.azikram0.spring.lab5.dto;
 
-public record OwnerDto(
-        int id,
-        String firstName,
-        String lastName,
-        String phone,
-        String email,
-        String address
-) {
-}
+import jakarta.validation.constraints.*;
 
+public record OwnerDto(
+        @NotNull(message = "ID обязателен")
+        Integer id,
+
+        @NotBlank(message = "Имя не может быть пустым")
+        String firstName,
+
+        @NotBlank(message = "Фамилия не может быть пустой")
+        String lastName,
+
+        @Pattern(regexp = "\\+?\\d{10,15}", message = "Неверный формат телефона")
+        String phone,
+
+        @Email(message = "Некорректный email")
+        String email,
+
+        @NotBlank(message = "Адрес обязателен")
+        String address
+) {}
