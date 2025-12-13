@@ -1,4 +1,4 @@
-package com.azikram0.spring.lab5;
+package com.azikram0.spring.lab56;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

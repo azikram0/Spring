@@ -16,8 +16,8 @@ public class Pet {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "species")
-    private String species;
+    @Column(name = "species_id")
+    private int speciesId;
     @Column(name = "breed")
     private String breed;
     @Column(name = "birth_date")
@@ -69,12 +69,12 @@ public class Pet {
         this.name = name;
     }
 
-    public String getSpecies() {
-        return species;
+    public int getSpeciesId() {
+        return speciesId;
     }
 
-    public void setSpecies(String species) {
-        this.species = species;
+    public void setSpeciesId(int speciesId) {
+        this.speciesId = speciesId;
     }
 
     public String getBreed() {
@@ -130,7 +130,7 @@ public class Pet {
         return "Pet{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", species='" + species + '\'' +
+                ", speciesId='" + speciesId + '\'' +
                 ", breed='" + breed + '\'' +
                 ", birthDate=" + birthDate +
                 ", gender='" + gender + '\'' +

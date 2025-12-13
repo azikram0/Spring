@@ -17,8 +17,8 @@ public class Specialist {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "qualification")
-    private String qualification;
+    @Column(name = "specialization_id")
+    private int specializationId;
     @Column(name = "phone")
     private String phone;
     @Column(name = "email")
@@ -60,12 +60,12 @@ public class Specialist {
         this.lastName = lastName;
     }
 
-    public String getQualification() {
-        return qualification;
+    public int getSpecializationId() {
+        return specializationId;
     }
 
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
+    public void setSpecializationId(int specializationId) {
+        this.specializationId = specializationId;
     }
 
     public String getPhone() {
@@ -119,7 +119,7 @@ public class Specialist {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", qualification='" + qualification + '\'' +
+                ", specializationId='" + specializationId + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", createdAt=" + createdAt +

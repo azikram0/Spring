@@ -16,4 +16,28 @@ public class Specialization {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "specialization_id")
     private List<Specialist> specialists;
+
+    public Specialization(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Specialization() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -1,8 +1,8 @@
-package com.azikram0.spring.lab5.controller;
+package com.azikram0.spring.lab56.controller;
 
-import com.azikram0.spring.lab5.dto.SpecialistDto;
-import com.azikram0.spring.lab5.form.SpecialistForm;
-import com.azikram0.spring.lab5.service.StubDataService;
+import com.azikram0.spring.lab56.dto.SpecialistDto;
+import com.azikram0.spring.lab56.form.SpecialistForm;
+import com.azikram0.spring.lab56.service.StubDataService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.azikram0.spring.lab5.form;
+package com.azikram0.spring.lab56.form;
 
 import jakarta.validation.constraints.*;
 

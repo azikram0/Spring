@@ -1,4 +1,4 @@
-package com.azikram0.spring.lab5.dto;
+package com.azikram0.spring.lab56.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

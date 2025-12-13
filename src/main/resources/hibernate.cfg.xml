@@ -30,6 +30,9 @@
         <mapping class="com.azikram0.spring.lab4.entity.Owner"/>
         <mapping class="com.azikram0.spring.lab4.entity.MedicalHistory"/>
         <mapping class="com.azikram0.spring.lab4.entity.PetOwnerLink"/>
+        <mapping class="com.azikram0.spring.lab4.entity.Specialization"/>
+        <mapping class="com.azikram0.spring.lab4.entity.Species"/>
+
 
     </session-factory>
 </hibernate-configuration>

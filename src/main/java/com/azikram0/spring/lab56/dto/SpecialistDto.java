@@ -1,10 +1,10 @@
-package com.azikram0.spring.lab5.dto;
+package com.azikram0.spring.lab56.dto;
 
 public record SpecialistDto(
         Integer id,
         String firstName,
         String lastName,
-        String qualification,
+        Integer specializationId,
         String phone,
         String email
 ) {

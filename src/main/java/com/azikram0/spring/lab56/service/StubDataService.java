@@ -1,6 +1,6 @@
-package com.azikram0.spring.lab5.service;
+package com.azikram0.spring.lab56.service;
 
-import com.azikram0.spring.lab5.dto.*;
+import com.azikram0.spring.lab56.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
