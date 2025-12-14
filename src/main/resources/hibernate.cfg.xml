@@ -25,13 +25,13 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapping files / annotated classes -->
-        <mapping class="com.azikram0.spring.lab4.entity.Specialist"/>
-        <mapping class="com.azikram0.spring.lab4.entity.Pet"/>
-        <mapping class="com.azikram0.spring.lab4.entity.Owner"/>
-        <mapping class="com.azikram0.spring.lab4.entity.MedicalHistory"/>
-        <mapping class="com.azikram0.spring.lab4.entity.PetOwnerLink"/>
-        <mapping class="com.azikram0.spring.lab4.entity.Specialization"/>
-        <mapping class="com.azikram0.spring.lab4.entity.Species"/>
+        <mapping class="com.azikram0.spring.lab456.entity.Specialist"/>
+        <mapping class="com.azikram0.spring.lab456.entity.Pet"/>
+        <mapping class="com.azikram0.spring.lab456.entity.Owner"/>
+        <mapping class="com.azikram0.spring.lab456.entity.MedicalHistory"/>
+        <mapping class="com.azikram0.spring.lab456.entity.PetOwnerLink"/>
+        <mapping class="com.azikram0.spring.lab456.entity.Specialization"/>
+        <mapping class="com.azikram0.spring.lab456.entity.Species"/>
 
 
     </session-factory>
